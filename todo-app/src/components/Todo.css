@@ -1,0 +1,62 @@
+
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+.header{
+    font-size: 2em;
+    text-align: center;
+}
+.input-container{
+   background: black;
+   padding: 0.5em; 
+   border-radius:1em ;
+   border: 2px solid yellow;
+   width: 500px;
+   
+}
+.input{
+    font-size: 1em;
+    font-weight: bold;
+    color: black;
+    background-color: white;
+    border: 1px;
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 80%;
+    margin: 1em;
+}
+.add-btn{
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    color:black ;
+    background-color: greenyellow;
+    margin: 10px;
+    
+}
+.dlt-btn{
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    color:black ;
+    background-color: red;
+    margin: 10px;
+    
+}
+.taskname{
+   font-style: italic;
+   color: yellow;
+   font-size: 1.25em;
+   padding: 0.5em;
+   margin:  0.5em;
+   border: 1px solid;
+   border-radius: 10px;
+   
+
+}

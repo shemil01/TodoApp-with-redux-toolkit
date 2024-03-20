@@ -1,33 +1,77 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTodo } from '../features/todo/todoSlice';
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+
+import {addTask,removeTask,editTask} from "../feature/todoSlice"
+import "./Todo.css";
+import { current } from '@reduxjs/toolkit';
 
 const AddTodo = () => {
-    const [input, setInput] = useState('');
-    const dispatch = useDispatch();
+const [addInput,setAddInput]=useState("")
+const [editIndex,setEditIndex] = useState(null)
+const [editList,setEditList] = useState("")
+const dispatch = useDispatch()
+useSelector((state)=>state.todoApp.todo)
+const addedList=useSelector((state)=>state.todoApp).todos
 
-    const addTodoHandler = (e) => {
-        e.preventDefault();
+const handleAddSubmit = ()=>{
+ if(addInput !== ""){
+    dispatch(addTask({id:addedList.length,data:addInput}));
+    setAddInput("")
+ }
+}
+const handleDelete = (todoId)=>{
+  dispatch(removeTask(todoId))
+}
 
-        dispatch(addTodo(input));
-        setInput('');
-    };
+const selectEdit=(index,currentTask)=>{
+  setEditIndex(index)
+  setEditList(currentTask)
+}
+const cancelEdit =()=>{
+  setEditIndex(null)
+  setEditList(" ")
+}
+const handleEditSubmit=(index)=>{
+  dispatch(editTask({
+todoId:index,
+updatedList:editList,
+  }))
+}
 
-    return (
-        <div style={{ backgroundColor: 'yellow', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <form onSubmit={addTodoHandler}>
-                <input
-                    type='text'
-                    className='input'
-                    style={{ color: 'black' }}
-                    placeholder='Type something'
-                    value={input}
-                    onChange={(e) => { setInput(e.target.value) }}
-                />
-                <button type="submit" className='add-btn'>ADD</button>
-            </form>
-        </div>
-    );
-};
+  return (
+    <div>
+        <h1>TodoApp</h1>
+        <form className='input-container' >
+            <input  type='text'   placeholder='type some thing' className='input'value={addInput} onChange={(e)=>setAddInput(e.target.value)}  />
+            <button className='add-btn' type='button' onClick={handleAddSubmit} >add</button>
+            
+            
+           
+        </form>
+        {addedList.map((item) => {
+  return (
+  <div className='input-container'>
+  <h1 style={{color:"white"}}>{item.data}</h1>
+  <button onClick={handleDelete}> delete</button>
+  <button onClick={()=>setEditIndex(item.id)}>edit</button>
+  {editIndex === item.id ? (
+    <div>
+      <input type="text"  />
+      <button onClick={handleEditSubmit}>save</button>
+    </div>
+   
+  ):""}
+ 
+   
+  
+ 
+  </div>
+  );
 
-export default AddTodo;
+})}
+
+    </div>
+  )
+}
+
+export default AddTodo
