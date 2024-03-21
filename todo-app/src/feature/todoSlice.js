@@ -17,8 +17,8 @@ const todoSlice=createSlice({
             state.todos.splice(action.payload,1)
         }, 
       editTask:(state,action)=>{
-        const {todosId,updatedTask} =action.payload.datas
-        const items = state.todos.find((item) => item.id === todosId);
+        const {todosId,updatedTask} =action.payload
+        const items = state.todos.find((item) =>item.id === todosId);
         if (items) {
           items.data = updatedTask;
         }
